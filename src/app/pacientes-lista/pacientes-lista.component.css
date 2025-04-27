@@ -1,0 +1,385 @@
+.pacientes-container {
+    padding: 20px;
+    background-color: #f5f5f9;
+    height: 100%;
+    position: relative; 
+  }
+
+  .pacientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+
+  .pacientes-header h1 {
+    font-size: 28px;
+    color: #282E38;
+    font-weight: 600;
+  }
+  
+  .add-paciente-btn {
+    background-color: #797EF5;
+    width: 216px;
+    height: 38px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .add-paciente-btn:hover {
+    background-color: #5b4cc4;
+  }
+  
+  .add-paciente-btn i {
+    margin-right: 8px;
+  }
+  
+  .search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .search-container {
+    position: relative;
+    width: 268px;
+    height: 38px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding-left: 10px;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+  }
+
+  .padding-left-5px {
+    padding: 0px 0px 0px 5px;
+  }
+
+  .padding-bot-1px {
+    padding: 0px 0px 1px 0px;
+  }
+
+  .filter-btn {
+    background-color: white;
+    border: 2px solid #64748B;
+    width: 216px;
+    height: 38px;
+    color: #64748B;
+    border-radius: 6px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filter-btn i {
+    margin-left: 10px;
+  }
+  
+  .pacientes-lista {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+  }
+  
+  .pacientes-lista th {
+    background-color: #f9f9f9;
+    font-weight: 700;
+    color: #282E38;
+    font-size: 14px;
+  }
+  
+  .pacientes-lista th i {
+    font-size: 12px;
+    margin-left: 5px;
+    color: #999;
+  }
+
+  tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  tr th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  tr th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  td {
+    background: white;
+    padding: 8px;
+  }
+  
+  .pacientes-lista td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .pacientes-lista tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pacientes-lista .header th {
+    height: 32px;
+    background-color: #E0E9F8;
+  }
+
+  .pacientes-lista tr{
+    background-color: white;
+    height: 48px;
+  }
+  
+  
+  .paciente-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .paciente-initials {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+  }
+  
+  .status-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .status-badge.active {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .status-badge.inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #A2A8F4;
+    font-size: 16px;
+  }
+  
+  .pagination-container {
+    position: relative;
+    top: -12px; 
+    background: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .pagination-info {
+    margin-left: auto;
+    color: #666;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    gap: 5px;
+  }
+  
+  
+  .pagination-btn {
+    background: none;
+    border: none;
+    margin: 0 4px;
+    padding: 6px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .pagination-btn.active {
+    background-color: #A2A8F4;
+    color: white;
+    border-color: #A2A8F4;
+  }
+  
+  .items-per-page button{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+
+  .actions button {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .actions button::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%; 
+    right: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: nowrap;
+  }
+  
+  .actions button:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .actions button::after {
+    background-color: #7679A3; 
+  }
+  
+  
+  
+
+  /*---------------- STATUS DROPDOWN ---------------*/
+  .status-dropdown {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    top: auto;
+    right: 2px; 
+  }
+  
+  .status-dropdown a {
+    color: #333;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .status-dropdown a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  
+  .filter-dropdown {
+    position: relative; 
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute; 
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 200px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    top: 100%; 
+    left: 0; 
+    max-height: 250px; 
+    overflow-y: auto; 
+  }
+
+  .filter-dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+
+  /*---------------- PAGE SIZE DROPDOWN ---------------*/
+  .dropdown-size-content {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    top: 70%;
+    right: 36px;
+    overflow-y: auto;
+  }
+  
+  .filter-dropdown:hover .dropdown-size-content {
+    display: block;
+  }
+  
+  .dropdown-size-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  
+ 
+  
+  
+  
+  
+
+  

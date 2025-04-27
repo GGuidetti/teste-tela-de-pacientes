@@ -1,0 +1,155 @@
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .sidebar {
+    width: 80px;
+    background-color: #7679A3;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    transition: width 0.3s;
+  }
+  
+  .sidebar {
+    width: 200px;
+  }
+  
+  .logo-container {
+    scale: 0.8;
+    margin-bottom: 30px;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  .users-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .users-div span{
+    font-size: 14px;
+    font-family: montserrat;
+  }
+
+  .sidebar .logo-container {
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  
+  .sidebar h2 {
+    display: none;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .sidebar h2 {
+    display: block;
+  }
+  
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 5px;
+  }
+  
+  .nav-item {
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .nav-menu .nav-item:first-child {
+    margin-top: 20px; 
+  }
+  
+  .sidebar .nav-item {
+    justify-content: flex-start;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  
+  .nav-item i {
+    font-size: 20px;
+    margin-top: 12px;
+  }
+  
+  .nav-item span {
+    display: none;
+    font-size: 14px;
+  }
+  
+  .sidebar .nav-item span {
+    display: block;
+  }
+
+  .nav-item.active {
+    background-color: white !important;
+    color: #141B4D; 
+  }
+  
+  .avatar {
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: #7679A3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  
+  .logout-button {
+    margin-top: 80px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    
+  }
+  .logout-button i {
+    font-size: 40px;
+  }
+  .sidebar .logout-button {
+    justify-content: flex-start;
+  }
+  
+  .logout-button span {
+    display: none;
+    margin-left: 15px;
+  }
+  
+  .sidebar .logout-button span {
+    display: block;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    background-color: #f5f5f9;
+    overflow-y: auto;
+  }
+  

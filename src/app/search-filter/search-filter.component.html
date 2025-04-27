@@ -1,0 +1,19 @@
+<div class="search-filter-container">
+    <div class="search-container">
+      <input type="text" placeholder="Pesquisar" class="search-input"
+        (input)="onSearchTermChange($event)" />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+  
+    <div class="filter-dropdown">
+      <button class="filter-btn" (click)="toggleDropdown()">
+        {{ selectedFilter }} <i class="fas fa-chevron-down padding-bot-1px"></i>
+      </button>
+      <div class="dropdown-content" *ngIf="dropdownOpen">
+        <a href="#" (click)="selectFilter('Todos os pacientes')">Todos os pacientes</a>
+        <a href="#" (click)="selectFilter('Ativo')">Ativo</a>
+        <a href="#" (click)="selectFilter('Inativo')">Inativo</a>
+      </div>
+    </div>
+  </div>
+  
