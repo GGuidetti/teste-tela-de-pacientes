@@ -1,0 +1,82 @@
+.pagination-container {
+    position: relative;
+    top: -12px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .pagination-info {
+    margin-left: auto;
+    color: #666;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .pagination-btn {
+    background: none;
+    border: none;
+    margin: 0 4px;
+    padding: 6px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .pagination-btn.active {
+    background-color: #A2A8F4;
+    color: white;
+    border-color: #A2A8F4;
+  }
+  
+  .items-per-page {
+    position: relative;
+  }
+  
+  .items-per-page button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-size-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    top: 100%;
+    right: 0;
+    overflow-y: auto;
+    z-index: 2;
+    min-width: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .items-per-page:hover .dropdown-size-content,
+  .dropdown-size-content.open {
+    display: block;
+  }
+  
+  .dropdown-size-content a {
+    color: #333;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+  }
+  
+  .dropdown-size-content a:hover {
+    background-color: #f1f1f1;
+  }

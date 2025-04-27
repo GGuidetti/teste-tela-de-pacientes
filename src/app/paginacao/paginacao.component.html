@@ -1,0 +1,43 @@
+<div class="pagination-container">
+    <div class="pagination-info">
+      Mostrando {{ (currentPage - 1) * pageSize + 1 }} a
+      {{ currentPage * pageSize > totalRecords ? totalRecords : currentPage * pageSize }}
+      de {{ totalRecords }} itens
+    </div>
+  
+    <div class="pagination-controls">
+      <button class="pagination-btn" (click)="goToPage(1)" [disabled]="currentPage === 1">
+        <i class="fas fa-angle-double-left"></i>
+      </button>
+      <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">
+        <i class="fas fa-angle-left"></i>
+      </button>
+  
+  
+      <button
+        class="pagination-btn"
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="currentPage === i + 1"
+        (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+  
+      <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <i class="fas fa-angle-right"></i>
+      </button>
+      <button class="pagination-btn" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">
+        <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
+  
+    <div class="items-per-page">
+      <button class="dropdown-btn" (click)="toggleDropdownSize()">
+        {{ pageSize }} <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="dropdown-size-content" *ngIf="dropdownSizeOpen">
+        <a href="#" (click)="setPageSize(10)">10</a>
+        <a href="#" (click)="setPageSize(20)">20</a>
+        <a href="#" (click)="setPageSize(50)">50</a>
+      </div>
+    </div>
+  </div>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PacientesFiltroComponent } from '../pacientes-filtro/pacientes-filtro.component';
+import { PaginacaoComponent } from '../paginacao/paginacao.component';
 
 
 interface Paciente {
@@ -20,7 +21,7 @@ interface Paciente {
 @Component({
   selector: 'app-pacientes-lista',
   standalone: true,
-  imports: [FormsModule, CommonModule, PacientesFiltroComponent], // Adicione PacientesFiltroComponent aos imports
+  imports: [FormsModule, CommonModule, PacientesFiltroComponent, PaginacaoComponent], // Adicione PacientesPaginacaoComponent aos imports
   templateUrl: './pacientes-lista.component.html',
   styleUrl: './pacientes-lista.component.css'
 })
@@ -29,10 +30,8 @@ export class PacientesListaComponent implements OnInit {
   pacientes: Paciente[] = [];
   pacientesFiltrados: Paciente[] = [];
   selectedFilter = 'Todos os pacientes';
-  dropdownSizeOpen = false;
   currentPage: number = 1;
   pageSize: number = 10;
-  totalPages: number = 0;
   totalRecords: number = 0;
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -250,9 +249,7 @@ export class PacientesListaComponent implements OnInit {
       }
     ]
 
-    this.pacientesFiltrados = [...this.pacientes];
-    this.sortPatients('name');
-    this.updateFilteredPatients();
+    this.updateFilteredPatients(); // Chame para a inicialização
   }
 
   toggleStatusDropdown(paciente: Paciente) {
@@ -307,55 +304,32 @@ export class PacientesListaComponent implements OnInit {
     }
 
     this.totalRecords = filteredPacientes.length;
-    this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
-    this.pacientesFiltrados = filteredPacientes.slice(
-      (this.currentPage - 1) * this.pageSize,
-      this.currentPage * this.pageSize
-    );
-  }
-
-  setPageSize(size: number): void {
-    this.pageSize = size;
-    this.currentPage = 1;
-    this.dropdownSizeOpen = false;
-    this.updateFilteredPatients();
-  }
-
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.updateFilteredPatients();
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateFilteredPatients();
-    }
-  }
-
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateFilteredPatients();
-    }
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pacientesFiltrados = filteredPacientes.slice(startIndex, endIndex);
   }
 
   handleFilterChanged(filterData: { term: string, filter: string }) {
     this.searchTerm = filterData.term;
     this.selectedFilter = filterData.filter;
-    this.currentPage = 1; // Resetar para a primeira página após filtrar
+    this.currentPage = 1;
     this.updateFilteredPatients();
   }
 
   handleSearchTermChanged(term: string) {
     this.searchTerm = term;
-    this.currentPage = 1; // Resetar para a primeira página após pesquisar
+    this.currentPage = 1;
     this.updateFilteredPatients();
   }
 
-  toggleDropdownSize() {
-    this.dropdownSizeOpen = !this.dropdownSizeOpen;
+  handlePageChanged(page: number) {
+    this.currentPage = page;
+    this.updateFilteredPatients();
+  }
+
+  handlePageSizeChanged(pageSize: number) {
+    this.pageSize = pageSize;
+    this.currentPage = 1;
+    this.updateFilteredPatients();
   }
 }
