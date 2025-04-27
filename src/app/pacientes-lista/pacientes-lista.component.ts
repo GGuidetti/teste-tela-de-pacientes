@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PacientesFiltroComponent } from '../pacientes-filtro/pacientes-filtro.component';
+
 
 interface Paciente {
-  [key: string]: any; 
+  [key: string]: any;
   initials: string
   name: string
   status: "Ativo" | "Inativo"
@@ -17,19 +19,17 @@ interface Paciente {
 
 @Component({
   selector: 'app-pacientes-lista',
-  imports: [FormsModule, CommonModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule, PacientesFiltroComponent], // Adicione PacientesFiltroComponent aos imports
   templateUrl: './pacientes-lista.component.html',
   styleUrl: './pacientes-lista.component.css'
 })
-export class PacientesListaComponent {
-  searchTerm = ""
-  pacientes: Paciente[] = []
-  pacientesFiltrados: Paciente[] = []
-
+export class PacientesListaComponent implements OnInit {
+  searchTerm = "";
+  pacientes: Paciente[] = [];
+  pacientesFiltrados: Paciente[] = [];
   selectedFilter = 'Todos os pacientes';
-  dropdownOpen = false;
   dropdownSizeOpen = false;
-
   currentPage: number = 1;
   pageSize: number = 10;
   totalPages: number = 0;
@@ -249,9 +249,9 @@ export class PacientesListaComponent {
         showStatusDropdown: false
       }
     ]
-  
-    this.pacientesFiltrados = [...this.pacientes]
-    this.sortPatients('name'); 
+
+    this.pacientesFiltrados = [...this.pacientes];
+    this.sortPatients('name');
     this.updateFilteredPatients();
   }
 
@@ -261,7 +261,6 @@ export class PacientesListaComponent {
         p.showStatusDropdown = false;
       }
     });
-
     paciente.showStatusDropdown = !paciente.showStatusDropdown;
   }
 
@@ -269,7 +268,7 @@ export class PacientesListaComponent {
     paciente.status = newStatus;
     paciente.showStatusDropdown = false;
   }
-  
+
   sortPatients(column: string): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -317,7 +316,7 @@ export class PacientesListaComponent {
 
   setPageSize(size: number): void {
     this.pageSize = size;
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.dropdownSizeOpen = false;
     this.updateFilteredPatients();
   }
@@ -342,39 +341,21 @@ export class PacientesListaComponent {
       this.updateFilteredPatients();
     }
   }
-  
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
+
+  handleFilterChanged(filterData: { term: string, filter: string }) {
+    this.searchTerm = filterData.term;
+    this.selectedFilter = filterData.filter;
+    this.currentPage = 1; // Resetar para a primeira página após filtrar
+    this.updateFilteredPatients();
   }
+
+  handleSearchTermChanged(term: string) {
+    this.searchTerm = term;
+    this.currentPage = 1; // Resetar para a primeira página após pesquisar
+    this.updateFilteredPatients();
+  }
+
   toggleDropdownSize() {
     this.dropdownSizeOpen = !this.dropdownSizeOpen;
   }
-
-  selectFilter(filter: string) {
-    this.selectedFilter = filter;
-    this.applyFilter();
-    this.dropdownOpen = false;
-  }
-
-  applyFilter(): void {
-    let filteredPacientes = this.pacientes;
-    if (this.selectedFilter && this.selectedFilter !== 'Todos os pacientes') {
-      filteredPacientes = filteredPacientes.filter(paciente => paciente.status === this.selectedFilter);
-    }
-  
-    if (this.searchTerm) {
-      const search = this.searchTerm.toLowerCase();
-      filteredPacientes = filteredPacientes.filter(
-        (paciente) =>
-          paciente.name.toLowerCase().includes(search) ||
-          paciente.diagnosis.toLowerCase().includes(search) ||
-          paciente.medication.toLowerCase().includes(search) ||
-          paciente.healthProvider.toLowerCase().includes(search),
-      );
-    }
-  
-    this.pacientesFiltrados = [...filteredPacientes];
-  }
-  
-   
 }

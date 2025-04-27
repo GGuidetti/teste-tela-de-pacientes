@@ -1,123 +1,109 @@
 <div class="pacientes-container">
-    <div class="pacientes-header">
-      <h1>Pacientes</h1>
-      <button class="add-paciente-btn">
-        <i class="fas fa-plus padding-left-5px"></i> Cadastrar Paciente
-      </button>
-    </div>
-    
-    <div class="search-filter-container">
-      <div class="search-container">
-        <input type="text" placeholder="Pesquisar" class="search-input" [(ngModel)]="searchTerm" (input)="applyFilter()">
-        <i class="fas fa-search search-icon"></i>
-      </div>
-      
-      <div class="filter-dropdown">
-        <button class="filter-btn" (click)="toggleDropdown()">
-          {{ selectedFilter }} <i class="fas fa-chevron-down padding-bot-1px"></i>
-        </button>
-        <div class="dropdown-content" *ngIf="dropdownOpen">
-          <a href="#" (click)="selectFilter('Todos os pacientes')">Todos os pacientes</a>
-          <a href="#" (click)="selectFilter('Ativo')">Ativo</a>
-          <a href="#" (click)="selectFilter('Inativo')">Inativo</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="table-container">
-      <table class="pacientes-lista">
-        <thead>
-          <tr class="header">
-            <th (click)="sortPatients('name')">Paciente <i class="fas fa-sort"></i></th>
-            <th (click)="sortPatients('status')">Status <i class="fas fa-sort"></i></th>
-            <th (click)="sortPatients('diagnosis')">Diagnóstico <i class="fas fa-sort"></i></th>
-            <th (click)="sortPatients('medication')">Medicamento <i class="fas fa-sort"></i></th>
-            <th (click)="sortPatients('healthProvider')">Operadora de saúde <i class="fas fa-sort"></i></th>
-            <th (click)="sortPatients('lastRequest')">Última Solicitação <i class="fas fa-sort"></i></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let paciente of pacientesFiltrados">
-            <td>
-              <div class="paciente-info">
-                <div class="paciente-initials" [ngStyle]="{'background-color': paciente.color}">
-                  {{ paciente.initials }}
-                </div>
-                <span>{{ paciente.name }}</span>
-              </div>
-            </td>
-            <td>
-              <span class="status-badge" [ngClass]="paciente.status === 'Ativo' ? 'active' : 'inactive'">
-                {{ paciente.status }}
-              </span>
-            </td>
-            <td>{{ paciente.diagnosis || '-' }}</td>
-            <td>{{ paciente.medication }}</td>
-            <td>{{ paciente.healthProvider }}</td>
-            <td>{{ paciente.lastRequest }}</td>
-            <td>
-                <div class="actions">
-                  <button class="action-btn" title="Nova solicitação">
-                    <i class="fas fa-receipt"></i>
-                  </button>
-                  <button class="action-btn" (click)="toggleStatusDropdown(paciente)" title="Atualizar status">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  
-                  <div class="status-dropdown" *ngIf="paciente.showStatusDropdown">
-                    <a href="#" (click)="changeStatus(paciente, 'Ativo')">Ativo</a>
-                    <a href="#" (click)="changeStatus(paciente, 'Inativo')">Inativo</a>
-                  </div>
-                </div>
-              </td>              
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="pagination-container">
-        <div class="pagination-info">
-          Mostrando {{ (currentPage - 1) * pageSize + 1 }} a 
-          {{ currentPage * pageSize > totalRecords ? totalRecords : currentPage * pageSize }} 
-          de {{ totalRecords }} itens
-        </div>
-        
-        <div class="pagination-controls">
-          <button class="pagination-btn" (click)="goToPage(1)" [disabled]="currentPage === 1">
-            <i class="fas fa-angle-double-left"></i>
-          </button>
-          <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">
-            <i class="fas fa-angle-left"></i>
-          </button>
-          
+  <div class="pacientes-header">
+    <h1>Pacientes</h1>
+    <button class="add-paciente-btn">
+      <i class="fas fa-plus padding-left-5px"></i> Cadastrar Paciente
+    </button>
+  </div>
+  <app-pacientes-filtro
+  [searchTerm]="searchTerm"
+  [selectedFilter]="selectedFilter"
+  (filterChanged)="handleFilterChanged($event)"
+  (searchTermChanged)="handleSearchTermChanged($event)"
+></app-pacientes-filtro>
 
-          <button 
-            class="pagination-btn" 
-            *ngFor="let page of [].constructor(totalPages); let i = index" 
-            [class.active]="currentPage === i + 1"
-            (click)="goToPage(i + 1)">
-            {{ i + 1 }}
-          </button>
-          
-          <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
-            <i class="fas fa-angle-right"></i>
-          </button>
-          <button class="pagination-btn" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">
-            <i class="fas fa-angle-double-right"></i>
-          </button>
-        </div>
-        
-        <div class="items-per-page">
-            <button class="dropdown-btn" (click)="toggleDropdownSize()">
-              {{ pageSize }} <i class="fas fa-chevron-down"></i>
+<div class="table-container">
+  <table class="pacientes-lista">
+    <thead>
+      <tr class="header">
+        <th (click)="sortPatients('name')">Paciente <i class="fas fa-sort"></i></th>
+        <th (click)="sortPatients('status')">Status <i class="fas fa-sort"></i></th>
+        <th (click)="sortPatients('diagnosis')">Diagnóstico <i class="fas fa-sort"></i></th>
+        <th (click)="sortPatients('medication')">Medicamento <i class="fas fa-sort"></i></th>
+        <th (click)="sortPatients('healthProvider')">Operadora de saúde <i class="fas fa-sort"></i></th>
+        <th (click)="sortPatients('lastRequest')">Última Solicitação <i class="fas fa-sort"></i></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paciente of pacientesFiltrados">
+        <td>
+          <div class="paciente-info">
+            <div class="paciente-initials" [ngStyle]="{'background-color': paciente.color}">
+              {{ paciente.initials }}
+            </div>
+            <span>{{ paciente.name }}</span>
+          </div>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="paciente.status === 'Ativo' ? 'active' : 'inactive'">
+            {{ paciente.status }}
+          </span>
+        </td>
+        <td>{{ paciente.diagnosis || '-' }}</td>
+        <td>{{ paciente.medication }}</td>
+        <td>{{ paciente.healthProvider }}</td>
+        <td>{{ paciente.lastRequest }}</td>
+        <td>
+          <div class="actions">
+            <button class="action-btn" title="Nova solicitação">
+              <i class="fas fa-receipt"></i>
             </button>
-            <div class="dropdown-size-content" *ngIf="dropdownSizeOpen">
-              <a href="#" (click)="setPageSize(10)">10</a>
-              <a href="#" (click)="setPageSize(20)">20</a>
-              <a href="#" (click)="setPageSize(50)">50</a>
+            <button class="action-btn" (click)="toggleStatusDropdown(paciente)" title="Atualizar status">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+
+            <div class="status-dropdown" *ngIf="paciente.showStatusDropdown">
+              <a href="#" (click)="changeStatus(paciente, 'Ativo')">Ativo</a>
+              <a href="#" (click)="changeStatus(paciente, 'Inativo')">Inativo</a>
             </div>
           </div>
-      </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Mostrando {{ (currentPage - 1) * pageSize + 1 }} a
+    {{ currentPage * pageSize > totalRecords ? totalRecords : currentPage * pageSize }}
+    de {{ totalRecords }} itens
   </div>
-  
+
+  <div class="pagination-controls">
+    <button class="pagination-btn" (click)="goToPage(1)" [disabled]="currentPage === 1">
+      <i class="fas fa-angle-double-left"></i>
+    </button>
+    <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">
+      <i class="fas fa-angle-left"></i>
+    </button>
+
+
+    <button
+      class="pagination-btn"
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      [class.active]="currentPage === i + 1"
+      (click)="goToPage(i + 1)">
+      {{ i + 1 }}
+    </button>
+
+    <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="fas fa-angle-right"></i>
+    </button>
+    <button class="pagination-btn" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">
+      <i class="fas fa-angle-double-right"></i>
+    </button>
+  </div>
+
+  <div class="items-per-page">
+    <button class="dropdown-btn" (click)="toggleDropdownSize()">
+      {{ pageSize }} <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-size-content" *ngIf="dropdownSizeOpen">
+      <a href="#" (click)="setPageSize(10)">10</a>
+      <a href="#" (click)="setPageSize(20)">20</a>
+      <a href="#" (click)="setPageSize(50)">50</a>
+    </div>
+  </div>
+</div>

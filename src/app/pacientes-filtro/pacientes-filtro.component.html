@@ -1,7 +1,6 @@
 <div class="search-filter-container">
     <div class="search-container">
-      <input type="text" placeholder="Pesquisar" class="search-input"
-        (input)="onSearchTermChange($event)" />
+        <input type="text" placeholder="Pesquisar" class="search-input" [(ngModel)]="searchTerm" (input)="applyFilter(searchTerm)">
       <i class="fas fa-search search-icon"></i>
     </div>
   
@@ -16,4 +15,3 @@
       </div>
     </div>
   </div>
-  
