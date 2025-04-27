@@ -277,12 +277,11 @@ export class PacientesListaComponent implements OnInit {
     this.pacientesFiltrados.sort((a, b) => {
       const aValue = a[column];
       const bValue = b[column];
-
-      let comparison = 0;
-      if (aValue > bValue) comparison = 1;
-      if (aValue < bValue) comparison = -1;
-
-      return this.sortDirection === 'asc' ? comparison : -comparison;
+      const sortFactor = this.sortDirection === 'asc' ? 1 : -1;
+    
+      let comparison = (aValue > bValue) ? 1 : ((aValue < bValue) ? -1 : 0);
+    
+      return comparison * sortFactor;
     });
   }
 
