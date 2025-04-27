@@ -292,13 +292,13 @@ export class PacientesListaComponent implements OnInit {
     }
 
     if (this.searchTerm) {
-      const search = this.searchTerm.toLowerCase();
+      const searchNormalized = this.searchTerm.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       filteredPacientes = filteredPacientes.filter(
         (paciente) =>
-          paciente.name.toLowerCase().includes(search) ||
-          paciente.diagnosis.toLowerCase().includes(search) ||
-          paciente.medication.toLowerCase().includes(search) ||
-          paciente.healthProvider.toLowerCase().includes(search),
+          paciente.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
+          (paciente.diagnosis && paciente.diagnosis.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)) ||
+          paciente.medication.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
+          paciente.healthProvider.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized),
       );
     }
 
