@@ -93,7 +93,9 @@ export class PacientesListaComponent implements OnInit {
           paciente.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
           (paciente.diagnosis && paciente.diagnosis.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)) ||
           paciente.medication.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
-          paciente.healthProvider.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized),
+          paciente.healthProvider.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)||
+          paciente.lastRequest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)||
+          paciente.status.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized),
       );
     }
 
