@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PacientesListaComponent } from './pacientes-lista/pacientes-lista.component';
 import { FormsModule } from '@angular/forms';
+import { PacientesListaComponent } from './componentes/pacientes-lista/pacientes-lista.component';
 
 @Component({
   selector: 'app-root',

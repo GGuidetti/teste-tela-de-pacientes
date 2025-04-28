@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PacientesListaComponent } from './pacientes-lista/pacientes-lista.component';
+import { PacientesListaComponent } from './componentes/pacientes-lista/pacientes-lista.component';
 
 export const routes: Routes = [
     { path: '', component: PacientesListaComponent }
