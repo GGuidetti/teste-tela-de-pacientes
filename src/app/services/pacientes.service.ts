@@ -1,18 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
-interface Paciente {
-  [key: string]: any;
-  initials: string;
-  name: string;
-  status: "Ativo" | "Inativo";
-  diagnosis: string;
-  medication: string;
-  healthProvider: string;
-  lastRequest: string;
-  color: string;
-  showStatusDropdown: boolean;
-}
+import { Paciente } from '../interfaces/paciente.interface'; 
 
 @Injectable({
   providedIn: 'root'

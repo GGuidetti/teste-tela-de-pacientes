@@ -4,19 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { PacientesFiltroComponent } from '../pacientes-filtro/pacientes-filtro.component';
 import { PaginacaoComponent } from '../paginacao/paginacao.component';
 import { PacientesService } from '../../services/pacientes.service';
+import { Paciente } from '../../interfaces/paciente.interface';
 
-interface Paciente {
-  [key: string]: any;
-  initials: string
-  name: string
-  status: "Ativo" | "Inativo"
-  diagnosis: string
-  medication: string
-  healthProvider: string
-  lastRequest: string
-  color: string
-  showStatusDropdown: boolean
-}
 
 @Component({
   selector: 'app-pacientes-lista',
@@ -87,16 +76,23 @@ export class PacientesListaComponent implements OnInit {
     }
 
     if (this.searchTerm) {
-      const searchNormalized = this.searchTerm.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      filteredPacientes = filteredPacientes.filter(
-        (paciente) =>
-          paciente.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
-          (paciente.diagnosis && paciente.diagnosis.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)) ||
-          paciente.medication.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized) ||
-          paciente.healthProvider.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)||
-          paciente.lastRequest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized)||
-          paciente.status.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(searchNormalized),
-      );
+      const normalize = (text: string) => 
+        text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    
+      const searchNormalized = normalize(this.searchTerm);
+    
+      filteredPacientes = filteredPacientes.filter(paciente => {
+        const fieldsToSearch = [
+          paciente.name,
+          paciente.diagnosis,
+          paciente.medication,
+          paciente.healthProvider,
+          paciente.lastRequest,
+          paciente.status
+        ];
+    
+        return fieldsToSearch.some(field => field && normalize(field).includes(searchNormalized));
+      });
     }
 
     this.totalRecords = filteredPacientes.length;
